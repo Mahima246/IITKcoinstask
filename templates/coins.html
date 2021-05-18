@@ -21,14 +21,27 @@
       
       <div class="container">
       
-        <h1 style="border: 6ex;">Roll Number {{ rollno1 }} holds </h1>
+      <h2>
+        <u>Coins held by each roll number:</u>
+      </h2>
+        <!-- <h1 style="border: 6ex;">Roll Number {{ rollno1 }} holds </h1>
             <h1>{{ coins1 }}  coins</h1><br>
             <h1 style="border: 6ex;">Roll Number {{ rollno2 }} holds </h1>
             <h1>{{ coins2 }}  coins</h1><br>
             <h1 style="border: 6ex;">Roll Number {{ rollno3 }} holds </h1>
-            <h1>{{ coins3 }}  coins</h1>
-    
+            <h1>{{ coins3 }}  coins</h1> -->
+            <h4 id='coindata'></h4>
       </div>
     
 </body>
 </html>
+<script>
+  var data = JSON.parse("{{data|escapejs}}");
+  // var dataNode = document.getElementById('coindata');
+  var dataNode = document.getElementById('coindata');
+  dataNode.innerHTML+="{{data|escapejs}}";
+ 
+  // for(var x in data){
+  //     dataNode.innerHTML+=x+' : '+data[x]+'<br><br>';
+  // }
+</script>

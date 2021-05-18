@@ -1,16 +1,15 @@
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+coins = {'190468':6,'190289':7,'189088':9,'189789':9}
+@csrf_exempt
+def get_coins(request):
+    data = json.loads(request.body)
+    if 'rollno' not in data:
+        return JsonResponse({'error':'Invalid fields'})
+    if coins.get(data['rollno'],None) == None:
+        return JsonResponse({'error':'roll no does not exist '})
 
-from django.http.response import HttpResponse
-from django.shortcuts import render
-
-def index(request):
-    return render(request,'index.html')
-
-def coins(request):
-    roll1 = request.POST.get('rollno1')
-    roll2 = request.POST.get('rollno2')
-    roll3 = request.POST.get('rollno3')
-    coin1 = request.POST.get('coin1')
-    coin2 = request.POST.get('coin2')
-    coin3 = request.POST.get('coin3')
-    params = {'rollno1':roll1, 'coins1':coin1, 'rollno2':roll2,'coins2':coin2,'rollno3':roll3,'coins3':coin3}
-    return render(request, 'coins.html', params)
+    res = {'coins':coins[data['rollno']]}
+    print(res)
+    return JsonResponse(res)
